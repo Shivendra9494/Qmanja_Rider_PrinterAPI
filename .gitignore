@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Qmanja_BAL/bin/Debug/net5.0
+/Qmanja_BAL/obj
+/Qmanja_DAL/obj
+/Qmanja_DAL/bin/Debug/net5.0
+/Rider_Printer_API/bin/Debug/net5.0
+/Rider_Printer_API/obj
