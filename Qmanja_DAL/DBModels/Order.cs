@@ -60,6 +60,7 @@ namespace Qmanja_DAL.DBModels
         public DateTime? AllResolvedAt { get; set; }
         public string AppType { get; set; }
         public int? SupportAgentId { get; set; }
+        public string PrinterStatus { get; set; }
 
         public virtual BusinessDetail BusinessDetail { get; set; }
         public virtual Customer Customer { get; set; }

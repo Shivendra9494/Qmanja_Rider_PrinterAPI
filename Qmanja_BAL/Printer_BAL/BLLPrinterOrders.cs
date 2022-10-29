@@ -117,6 +117,28 @@ namespace Qmanja_BAL.Printer_BAL
             return order;
         }
 
+          public async Task<Order> OrderStatusById(int orderId,string orderSatus)
+        {
+            var order = _qFoodsContext.Orders.Where(o => o.Id == orderId).FirstOrDefault();
+            if (order == null) throw new Exception("Order not Found!");
+            else
+            {
+                order.PrinterStatus = orderSatus;
+            }
+
+            try
+            {
+                _qFoodsContext.Orders.Update(order);
+                await _qFoodsContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return order;
+        }
+
 
         /// <summary>
         /// Return newely arrived order or null

@@ -1203,6 +1203,10 @@ namespace Qmanja_DAL.DBModels
 
                 entity.Property(e => e.PostalCode).HasMaxLength(255);
 
+                entity.Property(e => e.PrinterStatus)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.ResponceFromPrinter).HasMaxLength(255);
 
                 entity.Property(e => e.SagePayAuth).HasMaxLength(255);

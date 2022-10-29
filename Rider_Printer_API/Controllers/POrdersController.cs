@@ -61,5 +61,12 @@ namespace Rider_Printer_API.Controllers
             if (orderId < 0) throw new Exception("Invalid Id");
             return await _printerOrders.GetById(orderId);
         }
+
+        [HttpGet("OrderStatusAPI")]
+        public async Task<Order> OrderStatus([System.Web.Http.FromUri] int orderId, string orderSatus)
+        {
+            if (orderId < 0) throw new Exception("Invalid Id");
+            return await _printerOrders.OrderStatusById(orderId, orderSatus);
+        }
     }
 }

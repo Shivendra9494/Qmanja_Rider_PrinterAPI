@@ -17,6 +17,7 @@ namespace Qmanja_BAL.Printer_BAL
         Task<HttpStatusCode> AcceptOrderAsync(int id, string deliveryTime, string responceFromPrinter);
 
         Task<Order> GetById(int orderId);
+        Task<Order> OrderStatusById(int orderId, string orderSatus);
 
         Task<Order> CheckForNewOrder();
 
