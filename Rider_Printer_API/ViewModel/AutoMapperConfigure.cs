@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Qmanja_BAL.Printer_BAL;
+using Qmanja_DAL.DBModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,16 @@ namespace Rider_Printer_API.ViewModel
     {
         public AutoMapperConfigure()
         {
-            //CreateMap<MenuCategoriesViewModel, BLLPrinterMenuItems>(MemberList.None);
-            //CreateMap<Account, AccountViewModel>(MemberList.None)
-            //    .ForMember(des => des.Department, opt => opt.MapFrom(src => src.Departments.DepartmentName));
+            CreateMap<MenuCategory, MenuCategoriesViewModel>()
+                 .ForMember(dest => dest.MenuItems, opt => opt.MapFrom(src => src.MenuItems));
 
-            //CreateMap<DepartmentViewModel, Department>(MemberList.None);
-            //CreateMap<Department, DepartmentViewModel>(MemberList.None);
+            CreateMap<MenuItem, MenuItemsViewModel>()
+                .ForMember(dest => dest.MenuItemModels, opt => opt.MapFrom(src => src.MenuItemModels))
+                .ForMember(dest => dest.MenuItemProperties, opt => opt.MapFrom(src => src.MenuItemProperties));
+
+            CreateMap<MenuItemModel, MenuItemViewModel>();
+
+            CreateMap<MenuItemProperty, MenuItemPropertyViewModel>();
         }
     }
 }

@@ -14,13 +14,14 @@ namespace Qmanja_BAL.Printer_BAL
     {
         #region Private Properties
         private readonly QFoodsContext _qFoodsContext;
-        
+        private readonly IMapper _mapper;
         #endregion Private Properties
 
         #region Constructor
-        public BLLPrinterOrders()
+        public BLLPrinterOrders(QFoodsContext qFoodsContext, IMapper mapper)
         {
-            _qFoodsContext = new QFoodsContext();
+            _qFoodsContext = qFoodsContext;
+            _mapper = mapper;
         }
         #endregion Constructor
 
