@@ -34,12 +34,11 @@ namespace Qmanja_BAL.Printer_BAL
         /// <returns></returns>
         public async Task<List<MenuCategory>> GetMenuItems(int bussinessDetailId)
         {
-            var menuItems = await _qFoodsContext.MenuCategories.Where(e => e.BusinessDetailId == bussinessDetailId).ToListAsync();
-                //.Include(e => e.MenuItems)
-                //.Include(e => e.MenuItems.Select(i => i.MenuItemModels))
-                //.Include(e => e.MenuItems.Select(i => i.MenuItemProperties))
-                //.Include(e => e.BusinessDetail).ToListAsync();
-
+            var menuItems = await _qFoodsContext.MenuCategories.Where(e => e.BusinessDetailId == bussinessDetailId)
+                .Include(e => e.MenuItems)
+                .ThenInclude(menuItems => menuItems.MenuItemModels)
+                .ThenInclude(menuItems => menuItems.MenuItem.MenuItemProperties)
+                .Include(e => e.BusinessDetail).ToListAsync();
             return menuItems;
         }
 
