@@ -48,7 +48,7 @@ namespace Qmanja_BAL.Printer_BAL
         public async Task<List<Order>> GetInKitchenOrdersAsync()
         {
             var orders = await _qFoodsContext.Orders
-                .Where(o => o.Acknowledged)
+                .Where(o => o.Status == "InKitchen")
                 .OrderByDescending(o => o.CreationDate)
                 .ToListAsync();
 
@@ -93,7 +93,7 @@ namespace Qmanja_BAL.Printer_BAL
 
             try
             {
-                _qFoodsContext.Orders.Add(order);
+                _qFoodsContext.Orders.Update(order);
                 await _qFoodsContext.SaveChangesAsync();
             }
             catch (Exception ex)
