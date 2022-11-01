@@ -15,6 +15,7 @@ using Rider_Printer_API.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Rider_Printer_API
@@ -51,6 +52,8 @@ namespace Rider_Printer_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rider_Printer_API", Version = "v1" });
             });
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

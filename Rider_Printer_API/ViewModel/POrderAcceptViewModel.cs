@@ -11,4 +11,10 @@ namespace Rider_Printer_API.ViewModel
         public string DeliveryTime { get; set; }
         public string ResponceFromPrinter { get; set; }
     }
+    public class POrderCancelViewModel
+    {
+        public int ID { get; set; }
+        public DateTime CancelTime { get; set; }
+        public string CancelledBy { get; set; }
+    }
 }

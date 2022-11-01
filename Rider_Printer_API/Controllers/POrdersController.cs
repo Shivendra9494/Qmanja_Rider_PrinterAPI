@@ -37,9 +37,7 @@ namespace Rider_Printer_API.Controllers
             return await _printerOrders.GetInKitchenOrdersAsync();
         }
 
-        [HttpGet]
-        [ActionName("OutForDelivery")]
-        [Microsoft.AspNetCore.Mvc.HttpGet("MenuCategories")]
+        [HttpGet("OutForDelivery")]
         public async Task<List<Order>> GetOutForDeliveryOrders()
         {
             return await _printerOrders.GetOutForDeliveryOrdersAsync();
@@ -53,8 +51,15 @@ namespace Rider_Printer_API.Controllers
             return await _printerOrders.AcceptOrderAsync(order.ID, order.DeliveryTime, order.ResponceFromPrinter);
 
         }
+        [HttpPut("CancelOrder")]
+        public async Task<HttpStatusCode> PutCancelOrder([FromBody] POrderCancelViewModel order)
+        {
+            if (order == null) return HttpStatusCode.BadRequest;
+            return await _printerOrders.CancelOrderAsync(order.ID, order.CancelTime, order.CancelledBy);
 
-      
+        }
+
+
         [HttpGet("Order")]
         public async Task<Order> GetOrderById([System.Web.Http.FromUri] int orderId)
         {
@@ -62,11 +67,11 @@ namespace Rider_Printer_API.Controllers
             return await _printerOrders.GetById(orderId);
         }
 
-        [HttpGet("OrderStatusAPI")]
-        public async Task<Order> OrderStatus([System.Web.Http.FromUri] int orderId, string orderSatus)
+        [HttpGet("UpdateOrderStatusAPI")]
+        public async Task<Order> UpdateOrderStatus([System.Web.Http.FromUri] int orderId, bool outofdelivery)
         {
             if (orderId < 0) throw new Exception("Invalid Id");
-            return await _printerOrders.OrderStatusById(orderId, orderSatus);
+            return await _printerOrders.OrderStatusById(orderId,  outofdelivery);
         }
     }
 }

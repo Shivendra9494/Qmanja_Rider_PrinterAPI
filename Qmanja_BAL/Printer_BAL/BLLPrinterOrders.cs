@@ -48,7 +48,7 @@ namespace Qmanja_BAL.Printer_BAL
         public async Task<List<Order>> GetInKitchenOrdersAsync()
         {
             var orders = await _qFoodsContext.Orders
-                .Where(o => o.Status == "InKitchen")
+                .Where(o => o.Status == "Accepted")
                 .OrderByDescending(o => o.CreationDate)
                 .ToListAsync();
 
@@ -105,6 +105,40 @@ namespace Qmanja_BAL.Printer_BAL
         }
 
         /// <summary>
+        /// Put: Accept Order
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancelTime"></param>
+        /// <param name="CancelledBy"></param>
+        /// <returns></returns>
+        public async Task<HttpStatusCode> CancelOrderAsync
+            (int id, DateTime cancelTime, string CancelledBy)
+        {
+            var order = _qFoodsContext.Orders.Where(o => o.Id == id).FirstOrDefault();
+
+            if (order == null) return HttpStatusCode.NotFound;
+            order.CancelledDate = DateTime.Now;
+            order.CancelledBy = CancelledBy;
+            order.ResponceFromPrinter = "Cancelled";
+            order.Printed = true;
+            order.Acknowledged = true;
+            order.Status = "Cancelled";
+            order.Cancelled = true;
+
+            try
+            {
+                _qFoodsContext.Orders.Update(order);
+                await _qFoodsContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return HttpStatusCode.OK;
+        }
+
+        /// <summary>
         /// Return order details
         /// </summary>
         /// <param name="orderId"></param>
@@ -117,13 +151,14 @@ namespace Qmanja_BAL.Printer_BAL
             return order;
         }
 
-          public async Task<Order> OrderStatusById(int orderId,string orderSatus)
+          public async Task<Order> OrderStatusById(int orderId, bool outofdelivery)
         {
             var order = _qFoodsContext.Orders.Where(o => o.Id == orderId).FirstOrDefault();
             if (order == null) throw new Exception("Order not Found!");
             else
             {
-                order.PrinterStatus = orderSatus;
+                order.OutForDelivery = outofdelivery;
+                order.Status = "Out of Delivery";
             }
 
             try
