@@ -11,11 +11,13 @@ using System.Web.Http;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using Qmanja_DAL.DBModels;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
+using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 
 namespace Rider_Printer_API.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
 
     public class PMenuController : ControllerBase
     {
@@ -29,7 +31,7 @@ namespace Rider_Printer_API.Controllers
         }
 
 
-        [Microsoft.AspNetCore.Mvc.HttpGet("MenuCategories")]
+        [HttpGet("MenuCategories")]
        
         public async Task<List<MenuCategoriesViewModel>> GetMenuCategoriesAsync([FromUri] int businessDetailId)
         {
