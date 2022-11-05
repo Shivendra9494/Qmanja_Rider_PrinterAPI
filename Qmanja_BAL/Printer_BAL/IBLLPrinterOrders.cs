@@ -18,7 +18,7 @@ namespace Qmanja_BAL.Printer_BAL
         Task<HttpStatusCode> CancelOrderAsync(int id, DateTime cancelTime, string CancelledBy);
 
         Task<Order> GetById(int orderId);
-        Task<Order> OrderStatusById(int orderId, bool outofdelivery);
+        Task<Order> OrderStatusById(int orderId, bool outofdelivery, string Status);
 
         Task<Order> CheckForNewOrder();
 

@@ -68,6 +68,7 @@ namespace Rider_Printer_API.Controllers
                             DiscountOff = item.DiscountOff,
                             Id = item.Id,
                             MenuItemModels = new List<MenuItemViewModel>(),
+                            MenuItemProperties = new List<MenuItemPropertyViewModel>(),
                             IsOffline = await _printerMenu.CheckForDisabledItem(item)
                         };
 
@@ -88,6 +89,25 @@ namespace Rider_Printer_API.Controllers
                                 };
 
                                 obj.MenuItemModels.Add(childMenu);
+                            }
+                        }
+
+                        if (item.MenuItemProperties != null && item.MenuItemProperties.Count() > 0)
+                        {
+                            foreach (var menuItem in item.MenuItemProperties)
+                            {
+                                var propMenu = new MenuItemPropertyViewModel()
+                                {
+                                    DisplayOrder = menuItem?.DisplayOrder ?? default,
+                                    Id = menuItem.Id,
+                                    Name = menuItem.Name,
+                                    Price = menuItem.Price,
+                                    AllowToppings = menuItem.AllowToppings,
+                                    DishPropertiesGroupId = menuItem.DishPropertiesGroupId
+                                    //IsOffline = await _printerMenu.CheckForDisabledItem(menuItem)
+                                };
+
+                                obj.MenuItemProperties.Add(propMenu);
                             }
                         }
 

@@ -151,14 +151,14 @@ namespace Qmanja_BAL.Printer_BAL
             return order;
         }
 
-          public async Task<Order> OrderStatusById(int orderId, bool outofdelivery)
+          public async Task<Order> OrderStatusById(int orderId, bool outofdelivery, string Status)
         {
             var order = _qFoodsContext.Orders.Where(o => o.Id == orderId).FirstOrDefault();
             if (order == null) throw new Exception("Order not Found!");
             else
             {
                 order.OutForDelivery = outofdelivery;
-                order.Status = "Out of Delivery";
+                order.Status = Status;
             }
 
             try

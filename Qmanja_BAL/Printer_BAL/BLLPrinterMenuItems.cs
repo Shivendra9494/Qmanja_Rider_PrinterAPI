@@ -37,9 +37,13 @@ namespace Qmanja_BAL.Printer_BAL
             var menuItems = await _qFoodsContext.MenuCategories.Where(e => e.BusinessDetailId == bussinessDetailId)
                 .Include(e => e.MenuItems)
                 .ThenInclude(menuItems => menuItems.MenuItemModels)
-                .ThenInclude(menuItems => menuItems.MenuItem.MenuItemProperties)
-                .Include(e => e.BusinessDetail).ToListAsync();
+                 .Include(f => f.MenuItems)
+                .ThenInclude(menuItemsprop => menuItemsprop.MenuItemProperties)
+                .Include(g => g.BusinessDetail).ToListAsync();
             return menuItems;
+
+
+
         }
 
         public async Task<bool> CheckForDisabledItem(MenuItem item)
