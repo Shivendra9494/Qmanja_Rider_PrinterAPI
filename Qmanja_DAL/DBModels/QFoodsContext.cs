@@ -1209,6 +1209,10 @@ namespace Qmanja_DAL.DBModels
 
                 entity.Property(e => e.ResponceFromPrinter).HasMaxLength(255);
 
+                entity.Property(e => e.RiderLatitude).HasColumnType("decimal(8, 6)");
+
+                entity.Property(e => e.RiderLongitude).HasColumnType("decimal(9, 6)");
+
                 entity.Property(e => e.SagePayAuth).HasMaxLength(255);
 
                 entity.Property(e => e.ServiceCharge).HasColumnType("decimal(19, 2)");

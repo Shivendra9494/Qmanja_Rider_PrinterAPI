@@ -16,6 +16,7 @@ namespace Qmanja_BAL.Printer_BAL
         Task<List<Order>> GetOutForDeliveryOrdersAsync();
         Task<HttpStatusCode> AcceptOrderAsync(int id, string deliveryTime, string responceFromPrinter);
         Task<HttpStatusCode> CancelOrderAsync(int id, DateTime cancelTime, string CancelledBy);
+        Task<HttpStatusCode> RiderLoctionAddAsync(int orderid, decimal RiderLat, decimal Riderlong);
 
         Task<Order> GetById(int orderId);
         Task<Order> OrderStatusById(int orderId, bool outofdelivery, string Status);

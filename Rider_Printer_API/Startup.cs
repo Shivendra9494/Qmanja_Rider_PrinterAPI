@@ -53,7 +53,7 @@ namespace Rider_Printer_API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rider_Printer_API", Version = "v1" });
             });
             services.AddControllers().AddJsonOptions(x =>
-                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+               x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -48,7 +48,7 @@ namespace Qmanja_BAL.Printer_BAL
         public async Task<List<Order>> GetInKitchenOrdersAsync()
         {
             var orders = await _qFoodsContext.Orders
-                .Where(o => o.Status == "Accepted")
+                .Where(o => o.PrinterStatus == "Accepted")
                 .OrderByDescending(o => o.CreationDate)
                 .ToListAsync();
 
@@ -88,7 +88,7 @@ namespace Qmanja_BAL.Printer_BAL
             order.ResponceFromPrinter = responceFromPrinter;
             order.Printed = true;
             order.Acknowledged = true;
-            order.Status = "Accepted";
+            order.PrinterStatus = "Accepted";
             order.Cancelled = false;
 
             try
@@ -122,7 +122,7 @@ namespace Qmanja_BAL.Printer_BAL
             order.ResponceFromPrinter = "Cancelled";
             order.Printed = true;
             order.Acknowledged = true;
-            order.Status = "Cancelled";
+            order.PrinterStatus = "Cancelled";
             order.Cancelled = true;
 
             try
@@ -134,6 +134,51 @@ namespace Qmanja_BAL.Printer_BAL
             {
                 throw new Exception(ex.Message);
             }
+
+            return HttpStatusCode.OK;
+        }
+        /// <summary>
+        /// Put: Accept Order
+        /// </summary>
+        /// <param name="orderid"></param>
+        /// <param name="RiderLat"></param>
+        /// <param name="Riderlong"></param>
+        /// <returns></returns>
+        public async Task<HttpStatusCode> RiderLoctionAddAsync
+            (int orderid, decimal RiderLat, decimal Riderlong)
+        {
+            var order = _qFoodsContext.Orders.Where(o => o.Id == orderid).FirstOrDefault();
+
+            if (order == null) return HttpStatusCode.NotFound;
+            if(order.RiderLatitude != null)
+            {
+                order.RiderLatitude = RiderLat;
+                order.RiderLongitude = Riderlong;
+                try
+                {
+                    _qFoodsContext.Orders.Update(order);
+                    await _qFoodsContext.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            else
+            {
+                order.RiderLatitude = RiderLat;
+                order.RiderLongitude = Riderlong;
+                try
+                {
+                    _qFoodsContext.Orders.Update(order);
+                    await _qFoodsContext.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+           
 
             return HttpStatusCode.OK;
         }
@@ -158,7 +203,7 @@ namespace Qmanja_BAL.Printer_BAL
             else
             {
                 order.OutForDelivery = outofdelivery;
-                order.Status = Status;
+                order.PrinterStatus = Status;
             }
 
             try

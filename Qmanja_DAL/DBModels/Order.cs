@@ -61,6 +61,8 @@ namespace Qmanja_DAL.DBModels
         public string AppType { get; set; }
         public int? SupportAgentId { get; set; }
         public string PrinterStatus { get; set; }
+        public decimal? RiderLongitude { get; set; }
+        public decimal? RiderLatitude { get; set; }
 
         public virtual BusinessDetail BusinessDetail { get; set; }
         public virtual Customer Customer { get; set; }
