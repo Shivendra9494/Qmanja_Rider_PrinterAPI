@@ -33,7 +33,8 @@ namespace Qmanja_BAL.Printer_BAL
         /// <returns></returns>
         public async Task<List<Order>> GetOrdersAsync()
         {
-            var orders = await _qFoodsContext.Orders.Where(e => e.PrinterStatus == "Accepted" || e.PrinterStatus == "OutForDelivery")
+           
+            var orders = await _qFoodsContext.Orders.Where(l => l.Status == "Sent To Printer" || l.PrinterStatus == "Accepted" || l.PrinterStatus == "OutForDelivery")
                 .Include(o => o.OrderItems)
                 .OrderByDescending(o => o.CreationDate)
                 .ToListAsync();
