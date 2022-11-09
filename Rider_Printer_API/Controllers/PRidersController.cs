@@ -22,7 +22,7 @@ namespace Rider_Printer_API.Controllers
         }
 
         [HttpPut("RiderLocSave")]
-        public async Task<HttpStatusCode> PutCancelOrder([FromBody] PRiderLoction rider)
+        public async Task<HttpStatusCode> RiderLocSave([FromBody] PRiderLoction rider)
         {
             if (rider == null) return HttpStatusCode.BadRequest;
             return await _printerOrders.RiderLoctionAddAsync(rider.OrderId, rider.RiderLat, rider.RiderLong);
