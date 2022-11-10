@@ -68,10 +68,10 @@ namespace Rider_Printer_API.Controllers
         }
 
         [HttpPut("UpdateOrderStatusAPI")]
-        public async Task<Order> UpdateOrderStatus(int orderid, bool outofdelivery, string Status)
+        public async Task<HttpStatusCode> UpdateOrderStatus([FromBody] POrderStatusUpdate status)
         {
-            if (orderid < 0) throw new Exception("Invalid Id");
-            return await _printerOrders.OrderStatusById(orderid, outofdelivery, Status);
+            if (status.orderId < 0) throw new Exception("Invalid Id");
+            return await _printerOrders.OrderStatusById(status.orderId, status.OutForDeliver, status.PStatus);
         }
     }
 }

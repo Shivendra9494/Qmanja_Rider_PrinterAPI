@@ -19,7 +19,7 @@ namespace Qmanja_BAL.Printer_BAL
         Task<HttpStatusCode> RiderLoctionAddAsync(int orderid, decimal RiderLat, decimal Riderlong);
 
         Task<Order> GetById(int orderId);
-        Task<Order> OrderStatusById(int orderId, bool outofdelivery, string Status);
+        Task<HttpStatusCode> OrderStatusById(int orderId, bool outofdelivery, string Status);
 
         Task<Order> CheckForNewOrder();
 

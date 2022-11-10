@@ -33,8 +33,8 @@ namespace Qmanja_BAL.Printer_BAL
         /// <returns></returns>
         public async Task<List<Order>> GetOrdersAsync()
         {
-           
-            var orders = await _qFoodsContext.Orders.Where(l => l.Status == "Sent To Printer" || l.PrinterStatus == "Accepted" || l.PrinterStatus == "OutForDelivery")
+
+            var orders = await _qFoodsContext.Orders.Where(l => l.Status == "Sent To Printer" || l.PrinterStatus == "Accepted" || l.PrinterStatus == "OutForDelivery" || l.PrinterStatus == null)
                 .Include(o => o.OrderItems)
                 .OrderByDescending(o => o.CreationDate)
                 .ToListAsync();
@@ -126,6 +126,7 @@ namespace Qmanja_BAL.Printer_BAL
             order.Acknowledged = true;
             order.PrinterStatus = "Cancelled";
             order.Cancelled = true;
+        
 
             try
             {
@@ -198,7 +199,7 @@ namespace Qmanja_BAL.Printer_BAL
             return order;
         }
 
-          public async Task<Order> OrderStatusById(int orderId, bool outofdelivery, string Status)
+          public async Task<HttpStatusCode> OrderStatusById(int orderId, bool outofdelivery, string Status)
         {
             var order = _qFoodsContext.Orders.Where(o => o.Id == orderId).FirstOrDefault();
             if (order == null) throw new Exception("Order not Found!");
@@ -218,7 +219,7 @@ namespace Qmanja_BAL.Printer_BAL
                 throw new Exception(ex.Message);
             }
 
-            return order;
+            return HttpStatusCode.OK;
         }
 
 
