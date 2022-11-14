@@ -13,6 +13,7 @@ namespace Qmanja_BAL.Printer_BAL
 
         Task<List<Order>> GetOrdersAsync();
         Task<List<Order>> GetInKitchenOrdersAsync();
+        Task<List<Order>> GetTodayOrderslistAsync();
         Task<List<Order>> GetOutForDeliveryOrdersAsync();
         Task<HttpStatusCode> AcceptOrderAsync(int id, string deliveryTime, string responceFromPrinter);
         Task<HttpStatusCode> CancelOrderAsync(int id, DateTime cancelTime, string CancelledBy);

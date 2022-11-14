@@ -37,6 +37,12 @@ namespace Rider_Printer_API.Controllers
             return await _printerOrders.GetInKitchenOrdersAsync();
         }
 
+        [HttpGet("GetTodayOrders")]
+        public async Task<List<Order>> GetTodayOrderslist()
+        {
+            return await _printerOrders.GetTodayOrderslistAsync();
+        }
+
         [HttpGet("OutForDelivery")]
         public async Task<List<Order>> GetOutForDeliveryOrders()
         {

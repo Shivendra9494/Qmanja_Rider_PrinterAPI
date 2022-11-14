@@ -58,6 +58,20 @@ namespace Qmanja_BAL.Printer_BAL
         }
 
         /// <summary>
+        /// Return all Today orders
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Order>> GetTodayOrderslistAsync()
+        {
+            var orders = await _qFoodsContext.Orders
+                .Where(o => o.OrderDate == DateTime.Today)
+                .OrderByDescending(o => o.CreationDate)
+                .ToListAsync();
+
+            return orders;
+        }
+
+        /// <summary>
         /// Return all Out-For-Delivery orders
         /// </summary>
         /// <returns></returns>
