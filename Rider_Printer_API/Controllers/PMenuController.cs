@@ -103,8 +103,8 @@ namespace Rider_Printer_API.Controllers
                                     Name = menuItem.Name,
                                     Price = menuItem.Price,
                                     AllowToppings = menuItem.AllowToppings,
-                                    DishPropertiesGroupId = menuItem.DishPropertiesGroupId
-                                    //IsOffline = await _printerMenu.CheckForDisabledItem(menuItem)
+                                    DishPropertiesGroupId = menuItem.DishPropertiesGroupId,
+                                    IsOffline = await _printerMenu.CheckForDisabledItem(menuItem)
                                 };
 
                                 obj.MenuItemProperties.Add(propMenu);
@@ -122,13 +122,12 @@ namespace Rider_Printer_API.Controllers
             return categories;
         }
 
-        [Microsoft.AspNetCore.Mvc.HttpPut("DisableItems")]
+       
+        [HttpPut("DisableItems")]
         public async Task<HttpStatusCode> PutDisableItems([System.Web.Http.FromBody] List<DisableItemsViewModel> items)
         {
             if (items == null || items.Count < 1) return HttpStatusCode.BadRequest;
-
             var disabledItems = new List<DisabledItem>();
-
             foreach (var item in items)
             {
                 var disabledItem = new DisabledItem()
@@ -138,16 +137,14 @@ namespace Rider_Printer_API.Controllers
                     From = DateTime.UtcNow,
                     To = item.Duration == DisabledItemLife.OneDay ? DateTime.Today : CalculateYears(DateTime.Today)
                 };
-
                 disabledItems.Add(disabledItem);
             }
-
             return await _printerMenu.DisableItems(disabledItems);
         }
 
 
-     
-        [Microsoft.AspNetCore.Mvc.HttpPut("EnableItems")]
+       
+        [HttpPut("EnableItems")]
         public async Task<HttpStatusCode> PutEnableItems([System.Web.Http.FromBody] List<long> items)
         {
             if (items == null || items.Count < 1) return HttpStatusCode.BadRequest;
