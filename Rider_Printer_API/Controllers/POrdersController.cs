@@ -25,9 +25,9 @@ namespace Rider_Printer_API.Controllers
         }
       
         [HttpGet("Active")]
-        public async Task<List<Order>> GetOrders()
+        public async Task<List<Order>> GetOrders([System.Web.Http.FromUri] int businessid)
         {
-            return await _printerOrders.GetOrdersAsync();
+            return await _printerOrders.GetOrdersAsync(businessid);
         }
 
     

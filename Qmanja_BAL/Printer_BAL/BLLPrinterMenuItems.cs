@@ -99,6 +99,21 @@ namespace Qmanja_BAL.Printer_BAL
 
             return HttpStatusCode.OK;
         }
+        /// <summary>
+        /// Enable menu items
+        /// </summary>
+        /// <param name="businessid"></param>
+        /// <returns></returns>
+        public async Task<HttpStatusCode> MenuUpdate(int businessid)
+        {
+            MenuUpdateRecord menu = new MenuUpdateRecord();
+            menu.MenuUpdatedOn = DateTime.Now;
+            menu.BusinessDetailId = businessid;
+            _qFoodsContext.MenuUpdateRecords.Add(menu);
+             await _qFoodsContext.SaveChangesAsync();
+           
+            return HttpStatusCode.OK;
+        }
 
         #endregion Public Methods
     }

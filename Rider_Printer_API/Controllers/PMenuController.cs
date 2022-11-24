@@ -1,18 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Qmanja_BAL.Printer_BAL;
+using Qmanja_DAL.DBModels;
 using Rider_Printer_API.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Http;
-
-using Microsoft.Extensions.Logging;
 using System.Net;
-using Qmanja_DAL.DBModels;
-using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
-using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
+using System.Threading.Tasks;
 
 namespace Rider_Printer_API.Controllers
 {
@@ -33,7 +28,7 @@ namespace Rider_Printer_API.Controllers
 
         [HttpGet("MenuCategories")]
        
-        public async Task<List<MenuCategoriesViewModel>> GetMenuCategoriesAsync([FromUri] int businessDetailId)
+        public async Task<List<MenuCategoriesViewModel>> GetMenuCategoriesAsync([System.Web.Http.FromUri] int businessDetailId)
         {
             if (businessDetailId < 1) throw new Exception("Invalid Id!");
             var menuCategories = await _printerMenu.GetMenuItems(businessDetailId);
@@ -104,7 +99,7 @@ namespace Rider_Printer_API.Controllers
                                     Price = menuItem.Price,
                                     AllowToppings = menuItem.AllowToppings,
                                     DishPropertiesGroupId = menuItem.DishPropertiesGroupId,
-                                    IsOffline = await _printerMenu.CheckForDisabledItem(menuItem)
+                                  //  IsOffline = await _printerMenu.CheckForDisabledItem(menuItem)
                                 };
 
                                 obj.MenuItemProperties.Add(propMenu);
@@ -159,5 +154,15 @@ namespace Rider_Printer_API.Controllers
             return date;
         }
         #endregion Helpers
+
+
+
+        [HttpGet("MenuUpdateOn")]
+        public async Task<HttpStatusCode> GetOrders([System.Web.Http.FromUri] int businessid)
+        {
+            return await _printerMenu.MenuUpdate(businessid);
+        }
+
+
     }
 } 

@@ -11,7 +11,7 @@ namespace Qmanja_BAL.Printer_BAL
     public interface IBLLPrinterOrders
     {
 
-        Task<List<Order>> GetOrdersAsync();
+        Task<List<Order>> GetOrdersAsync(int businessid);
         Task<List<Order>> GetInKitchenOrdersAsync();
         Task<List<Order>> GetTodayOrderslistAsync();
         Task<List<Order>> GetOutForDeliveryOrdersAsync();

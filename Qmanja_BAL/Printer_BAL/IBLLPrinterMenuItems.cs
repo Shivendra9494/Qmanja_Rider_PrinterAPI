@@ -15,5 +15,6 @@ namespace Qmanja_BAL.Printer_BAL
         Task<bool> CheckForDisabledItem(MenuItemModel item);
         Task<HttpStatusCode> DisableItems(List<DisabledItem> items);
         Task<HttpStatusCode> EnableItems(List<long> itemsIds);
+        Task<HttpStatusCode> MenuUpdate(int businessid);
     }
 }

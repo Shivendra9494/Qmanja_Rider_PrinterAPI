@@ -28,19 +28,27 @@ namespace Qmanja_BAL.Printer_BAL
         #region Public Methods
 
         /// <summary>
-        /// Return all orders
+        /// Return order details
         /// </summary>
+        /// <param name="businessid"></param>
         /// <returns></returns>
-        public async Task<List<Order>> GetOrdersAsync()
+        public async Task<List<Order>> GetOrdersAsync(int businessid)
         {
 
-            var orders = await _qFoodsContext.Orders.Where(l => l.Status == "Sent To Printer" || l.PrinterStatus == "Accepted" || l.PrinterStatus == "OutForDelivery" || l.PrinterStatus == null)
+            var orders = await _qFoodsContext.Orders.Where(l =>  l.Status == "Sent To Printer" || l.PrinterStatus == "Accepted" || l.PrinterStatus == "OutForDelivery" || l.PrinterStatus == null )
                 .Include(o => o.OrderItems)
                 .OrderByDescending(o => o.CreationDate)
                 .ToListAsync();
-           
+            if(orders != null)
+            {
+                var businessorder = orders.Where(c => c.BusinessDetailId == businessid).ToList();
+                return businessorder;
+            }
 
             return orders;
+
+
+
         }
 
         /// <summary>
