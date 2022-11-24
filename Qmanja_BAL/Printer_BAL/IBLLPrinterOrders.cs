@@ -22,7 +22,7 @@ namespace Qmanja_BAL.Printer_BAL
         Task<Order> GetById(int orderId);
         Task<HttpStatusCode> OrderStatusById(int orderId, bool outofdelivery, string Status);
 
-        Task<Order> CheckForNewOrder();
+        Task<Order> CheckForNewOrder(int businessid);
 
 
 

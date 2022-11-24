@@ -246,22 +246,27 @@ namespace Qmanja_BAL.Printer_BAL
 
 
         /// <summary>
-        /// Return newely arrived order or null
+        /// Return order details
         /// </summary>
+        /// <param name="businessid"></param>
         /// <returns></returns>
-        public async Task<Order> CheckForNewOrder()
+        public async Task<Order> CheckForNewOrder(int businessid)
         {
             var order = await _qFoodsContext.Orders.Where(
-                o => o.Acknowledged == false &&
-                o.Status == "Sent To Printer" &&
-                o.Printed == false &&
-                o.OutForDelivery == false &&
-                o.Cancelled == false)
-            .Include(o => o.OrderItems)
-            .OrderByDescending(o => o.CreationDate)
+             o => o.Status == "Sent To Printer" || 
+             o.PrinterStatus == null)
+            .Include(p => p.OrderItems)
+            .OrderByDescending(q => q.CreationDate)
             .FirstOrDefaultAsync();
 
-            return order;
+           
+            if (order.BusinessDetailId == businessid)
+            {
+                return order;
+            }
+            return null;
+
+            
         }
 
         #endregion Public Method

@@ -24,9 +24,9 @@ namespace Rider_Printer_API.Controllers
 
     
         [Microsoft.AspNetCore.Mvc.HttpGet("FetchNewOrder")]
-        public async Task<Order> GetNewOrder()
+        public async Task<Order> GetNewOrder([System.Web.Http.FromUri] int businessid)
         {
-            var neworder = await _printerOrders.CheckForNewOrder();
+            var neworder = await _printerOrders.CheckForNewOrder(businessid);
             return neworder;
         }
     }
