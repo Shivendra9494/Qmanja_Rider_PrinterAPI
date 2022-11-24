@@ -66,13 +66,14 @@ namespace Qmanja_BAL.Printer_BAL
         }
 
         /// <summary>
-        /// Return all Today orders
+        /// Return order details
         /// </summary>
+        /// <param name="businessid"></param>
         /// <returns></returns>
-        public async Task<List<Order>> GetTodayOrderslistAsync()
+        public async Task<List<Order>> GetTodayOrderslistAsync(int businessid)
         {
             var orders = await _qFoodsContext.Orders
-                .Where(o => o.OrderDate == DateTime.Today)
+                .Where(o => o.CreationDate.Value.Date == DateTime.Today.Date && o.BusinessDetailId == businessid)
                 .OrderByDescending(o => o.CreationDate)
                 .ToListAsync();
 
@@ -113,6 +114,7 @@ namespace Qmanja_BAL.Printer_BAL
             order.Printed = true;
             order.Acknowledged = true;
             order.PrinterStatus = "Accepted";
+            order.Status = "Completed";
             order.Cancelled = false;
 
             try
@@ -147,6 +149,7 @@ namespace Qmanja_BAL.Printer_BAL
             order.Printed = true;
             order.Acknowledged = true;
             order.PrinterStatus = "Cancelled";
+            order.Status = "Completed";
             order.Cancelled = true;
         
 

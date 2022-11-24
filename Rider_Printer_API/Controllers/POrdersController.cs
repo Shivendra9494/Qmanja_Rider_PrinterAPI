@@ -38,9 +38,9 @@ namespace Rider_Printer_API.Controllers
         }
 
         [HttpGet("GetTodayOrders")]
-        public async Task<List<Order>> GetTodayOrderslist()
+        public async Task<List<Order>> GetTodayOrderslist([System.Web.Http.FromUri] int businessid)
         {
-            return await _printerOrders.GetTodayOrderslistAsync();
+            return await _printerOrders.GetTodayOrderslistAsync(businessid);
         }
 
         [HttpGet("OutForDelivery")]

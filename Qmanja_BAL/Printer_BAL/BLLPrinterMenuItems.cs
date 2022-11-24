@@ -106,11 +106,25 @@ namespace Qmanja_BAL.Printer_BAL
         /// <returns></returns>
         public async Task<HttpStatusCode> MenuUpdate(int businessid)
         {
-            MenuUpdateRecord menu = new MenuUpdateRecord();
-            menu.MenuUpdatedOn = DateTime.Now;
-            menu.BusinessDetailId = businessid;
-            _qFoodsContext.MenuUpdateRecords.Add(menu);
-             await _qFoodsContext.SaveChangesAsync();
+            var isExists = await _qFoodsContext.MenuUpdateRecords.Where(i => i.BusinessDetailId == businessid).FirstOrDefaultAsync();
+           
+           
+            if(isExists != null)
+            {
+                isExists.MenuUpdatedOn = DateTime.UtcNow;
+                _qFoodsContext.MenuUpdateRecords.Update(isExists);
+                _qFoodsContext.SaveChanges();
+            }
+            else
+            {
+                MenuUpdateRecord menu = new MenuUpdateRecord();
+                menu.BusinessDetailId = businessid;
+                menu.MenuUpdatedOn = DateTime.UtcNow;
+                _qFoodsContext.MenuUpdateRecords.Add(menu);
+                _qFoodsContext.SaveChanges();
+            }
+           
+           
            
             return HttpStatusCode.OK;
         }
