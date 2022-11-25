@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Qmanja_BAL.Printer_BAL;
+using Qmanja_BAL.ViewModels;
 using Qmanja_DAL.DBModels;
 using Rider_Printer_API.ViewModel;
 using System;
@@ -118,34 +119,34 @@ namespace Rider_Printer_API.Controllers
         }
 
        
-        [HttpPut("DisableItems")]
-        public async Task<HttpStatusCode> PutDisableItems([System.Web.Http.FromBody] List<DisableItemsViewModel> items)
-        {
-            if (items == null || items.Count < 1) return HttpStatusCode.BadRequest;
-            var disabledItems = new List<DisabledItem>();
-            foreach (var item in items)
-            {
-                var disabledItem = new DisabledItem()
-                {
-                    ItemId = item.ItemId,
-                    ItemType = item.ItemType,
-                    From = DateTime.UtcNow,
-                    To = item.Duration == DisabledItemLife.OneDay ? DateTime.Today : CalculateYears(DateTime.Today)
-                };
-                disabledItems.Add(disabledItem);
-            }
-            return await _printerMenu.DisableItems(disabledItems);
-        }
+        //[HttpPut("DisableItems")]
+        //public async Task<HttpStatusCode> PutDisableItems([System.Web.Http.FromBody] List<DisableItemsViewModel> items)
+        //{
+        //    if (items == null || items.Count < 1) return HttpStatusCode.BadRequest;
+        //    var disabledItems = new List<DisabledItem>();
+        //    foreach (var item in items)
+        //    {
+        //        var disabledItem = new DisabledItem()
+        //        {
+        //            ItemId = item.ItemId,
+        //            ItemType = item.ItemType,
+        //            From = DateTime.UtcNow,
+        //            To = item.Duration == DisabledItemLife.OneDay ? DateTime.Today : CalculateYears(DateTime.Today)
+        //        };
+        //        disabledItems.Add(disabledItem);
+        //    }
+        //    return await _printerMenu.DisableItems(disabledItems);
+        //}
 
 
        
-        [HttpPut("EnableItems")]
-        public async Task<HttpStatusCode> PutEnableItems([System.Web.Http.FromBody] List<long> items)
-        {
-            if (items == null || items.Count < 1) return HttpStatusCode.BadRequest;
+        //[HttpPut("EnableItems")]
+        //public async Task<HttpStatusCode> PutEnableItems([System.Web.Http.FromBody] List<long> items)
+        //{
+        //    if (items == null || items.Count < 1) return HttpStatusCode.BadRequest;
 
-            return await _printerMenu.EnableItems(items);
-        }
+        //    return await _printerMenu.EnableItems(items);
+        //}
         #region Helpers
         private DateTime CalculateYears(DateTime date)
         {
@@ -155,7 +156,30 @@ namespace Rider_Printer_API.Controllers
         }
         #endregion Helpers
 
-
+        [HttpPut("DisableMenuItems")]
+        public async Task<HttpStatusCode> PutDisableMenuItems([System.Web.Http.FromBody] ItemStatusViewModel items)
+        {
+            if (items == null || items.Id < 1) return HttpStatusCode.BadRequest;
+            return await _printerMenu.DisableMenuItems(items);
+        }
+        [HttpPut("EnableMenuItems")]
+        public async Task<HttpStatusCode> PutEnableMenuItems([System.Web.Http.FromBody] ItemStatusViewModel items)
+        {
+            if (items == null || items.Id < 1) return HttpStatusCode.BadRequest;
+            return await _printerMenu.EnableMenuItems(items);
+        }
+        [HttpPut("DisableMenuProperties")]
+        public async Task<HttpStatusCode> PutDisableMenuItemsProp([System.Web.Http.FromBody] ItemStatusViewModel items)
+        {
+            if (items == null || items.Id < 1) return HttpStatusCode.BadRequest;
+            return await _printerMenu.DisablePropertites(items);
+        }
+        [HttpPut("EnableMenuPropertites")]
+        public async Task<HttpStatusCode> PutEnableMenuItemsPropertites([System.Web.Http.FromBody] ItemStatusViewModel items)
+        {
+            if (items == null || items.Id < 1) return HttpStatusCode.BadRequest;
+            return await _printerMenu.EnableMenuProperies(items);
+        }
 
         [HttpGet("MenuUpdateOn")]
         public async Task<HttpStatusCode> GetOrders([System.Web.Http.FromUri] int businessid)

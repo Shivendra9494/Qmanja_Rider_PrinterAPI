@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Qmanja_BAL.ViewModels;
 using Qmanja_DAL.DBModels;
 using System;
 using System.Collections.Generic;
@@ -79,25 +80,89 @@ namespace Qmanja_BAL.Printer_BAL
             return HttpStatusCode.OK;
         }
 
-
         /// <summary>
-        /// Enable menu items
+        /// Disable menu items for one day or 5 years
         /// </summary>
-        /// <param name="itemsIds"></param>
+        /// <param name="menuitems"></param>
         /// <returns></returns>
-        public async Task<HttpStatusCode> EnableItems(List<long> itemsIds)
+        public async Task<HttpStatusCode> DisableMenuItems(ItemStatusViewModel menuitems)
         {
-            foreach (var itemId in itemsIds)
+            var isExists = _qFoodsContext.MenuItems.Where(i => i.Id == menuitems.Id).FirstOrDefault();
+            if (isExists != null)
             {
-                var isExists = await _qFoodsContext.DisabledItems.Where(i => i.ItemId == itemId).FirstOrDefaultAsync();
-                if (isExists != null)
-                {
-                    _qFoodsContext.DisabledItems.Remove(isExists);
-                    _qFoodsContext.SaveChanges();
-                }
+                isExists.IsDisabled = true;
+                isExists.DisabledUpto = menuitems.DisabledUpto;
+                _qFoodsContext.MenuItems.Update(isExists);
+                _qFoodsContext.SaveChanges();
             }
 
             return HttpStatusCode.OK;
+
+
+        }
+        /// <summary>
+        /// Disable menu properties for one day or 5 years
+        /// </summary>
+        /// <param name="menuPropertites"></param>
+        /// <returns></returns>
+        public async Task<HttpStatusCode> DisablePropertites(ItemStatusViewModel menuproperties)
+        {
+            var isExists = _qFoodsContext.MenuItemProperties.Where(i => i.Id == menuproperties.Id).FirstOrDefault();
+            if (isExists != null)
+            {
+                isExists.IsDisabled = true;
+                isExists.DisabledUpto = menuproperties.DisabledUpto;
+                _qFoodsContext.MenuItemProperties.Update(isExists);
+                _qFoodsContext.SaveChanges();
+            }
+
+            return HttpStatusCode.OK;
+
+
+        }
+
+
+        /// <summary>
+        /// Disable menu properties for one day or 5 years
+        /// </summary>
+        /// <param name="menuPropertites"></param>
+        /// <returns></returns>
+        public async Task<HttpStatusCode> EnableMenuProperies(ItemStatusViewModel menuproperties)
+        {
+            var isExists = _qFoodsContext.MenuItemProperties.Where(i => i.Id == menuproperties.Id).FirstOrDefault();
+            if (isExists != null)
+            {
+                isExists.IsDisabled = false;
+                isExists.DisabledUpto = null;
+                _qFoodsContext.MenuItemProperties.Update(isExists);
+                _qFoodsContext.SaveChanges();
+            }
+
+            return HttpStatusCode.OK;
+
+
+
+        }
+        /// <summary>
+        /// Disable menu properties for one day or 5 years
+        /// </summary>
+        /// <param name="menuitems"></param>
+        /// <returns></returns>
+        public async Task<HttpStatusCode> EnableMenuItems(ItemStatusViewModel menuitems)
+        {
+
+            var isExists = _qFoodsContext.MenuItems.Where(i => i.Id == menuitems.Id).FirstOrDefault();
+            if (isExists != null)
+            {
+                isExists.IsDisabled = false;
+                isExists.DisabledUpto = null;
+                _qFoodsContext.MenuItems.Update(isExists);
+                _qFoodsContext.SaveChanges();
+            }
+
+            return HttpStatusCode.OK;
+
+
         }
         /// <summary>
         /// Enable menu items

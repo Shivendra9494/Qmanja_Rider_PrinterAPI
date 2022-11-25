@@ -88,7 +88,7 @@ namespace Qmanja_DAL.DBModels
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=test.c5x5w8cq92i6.eu-west-2.rds.amazonaws.com;Initial Catalog=QFoods;Persist Security Info=True;User ID=dbadminODProd;Password=sunil123");
+                optionsBuilder.UseSqlServer("Data Source=test.c5x5w8cq92i6.eu-west-2.rds.amazonaws.com;Initial Catalog=QFoods;Persist Security Info=True;User ID=dbadminODProd;Password=sunil123;");
             }
         }
 
@@ -955,6 +955,8 @@ namespace Qmanja_DAL.DBModels
 
                 entity.Property(e => e.ContainEggs).HasDefaultValueSql("((0))");
 
+                entity.Property(e => e.DisabledUpto).HasColumnType("datetime");
+
                 entity.Property(e => e.DiscountOff)
                     .HasMaxLength(50)
                     .HasDefaultValueSql("((0))");
@@ -962,6 +964,8 @@ namespace Qmanja_DAL.DBModels
                 entity.Property(e => e.DishPropertyGroupId).HasMaxLength(255);
 
                 entity.Property(e => e.IsChefSpecial).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.IsDisabled).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.IsMustTry).HasDefaultValueSql("((0))");
 
@@ -1009,9 +1013,13 @@ namespace Qmanja_DAL.DBModels
 
                 entity.Property(e => e.AllowToppings).HasMaxLength(255);
 
+                entity.Property(e => e.DisabledUpto).HasColumnType("datetime");
+
                 entity.Property(e => e.DiscountOffer).HasMaxLength(500);
 
                 entity.Property(e => e.DishPropertiesGroupId).HasMaxLength(255);
+
+                entity.Property(e => e.IsDisabled).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Name).HasMaxLength(255);
 

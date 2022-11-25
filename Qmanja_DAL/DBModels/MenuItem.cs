@@ -34,6 +34,8 @@ namespace Qmanja_DAL.DBModels
         public bool? IsSeasonal { get; set; }
         public int? Discount { get; set; }
         public decimal? OriginalPrice { get; set; }
+        public bool? IsDisabled { get; set; }
+        public DateTime? DisabledUpto { get; set; }
 
         public virtual MenuCategory MenuCategory { get; set; }
         public virtual ICollection<MenuItemModel> MenuItemModels { get; set; }

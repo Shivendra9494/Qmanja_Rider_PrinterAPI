@@ -22,6 +22,8 @@ namespace Qmanja_DAL.DBModels
         public int? Discount { get; set; }
         public decimal? OriginalPrice { get; set; }
         public string DiscountOffer { get; set; }
+        public bool? IsDisabled { get; set; }
+        public DateTime? DisabledUpto { get; set; }
 
         public virtual MenuItem IdMenuItemNavigation { get; set; }
         public virtual ICollection<MenuItemPropertyModel> MenuItemPropertyModels { get; set; }
