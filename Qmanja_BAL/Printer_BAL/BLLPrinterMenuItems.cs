@@ -193,6 +193,17 @@ namespace Qmanja_BAL.Printer_BAL
            
             return HttpStatusCode.OK;
         }
+         /// <summary>
+        /// Enable menu items
+        /// </summary>
+     
+        /// <returns></returns>
+        public async Task<List<MenuUpdateRecord>> GetMenuUpdate()
+        {
+            var isExists = await _qFoodsContext.MenuUpdateRecords.Where(x => x.BusinessDetailId != 0).ToListAsync();
+           
+            return isExists;
+        }
 
         #endregion Public Methods
     }

@@ -22,5 +22,6 @@ namespace Qmanja_BAL.Printer_BAL
         Task<HttpStatusCode> DisableMenuItems (ItemStatusViewModel menuitems);
         Task<HttpStatusCode> DisablePropertites(ItemStatusViewModel menuItemProperty);
         Task<HttpStatusCode> MenuUpdate(int businessid);
+        Task<List<MenuUpdateRecord>> GetMenuUpdate();
     }
 }

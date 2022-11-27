@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using MenuUpdateRecord = Qmanja_DAL.DBModels.MenuUpdateRecord;
 
 namespace Rider_Printer_API.Controllers
 {
@@ -182,9 +183,14 @@ namespace Rider_Printer_API.Controllers
         }
 
         [HttpGet("MenuUpdateOn")]
-        public async Task<HttpStatusCode> GetOrders([System.Web.Http.FromUri] int businessid)
+        public async Task<HttpStatusCode> MenuUpdateOn([System.Web.Http.FromUri] int businessid)
         {
             return await _printerMenu.MenuUpdate(businessid);
+        }
+        [HttpGet("GetMenuUpdate")]
+        public async Task<List<MenuUpdateRecord>> GetMenuUpdate()
+        {
+            return await _printerMenu.GetMenuUpdate();
         }
 
 
