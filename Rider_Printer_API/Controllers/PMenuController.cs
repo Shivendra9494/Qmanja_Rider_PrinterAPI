@@ -181,6 +181,12 @@ namespace Rider_Printer_API.Controllers
             if (items == null || items.Id < 1) return HttpStatusCode.BadRequest;
             return await _printerMenu.EnableMenuProperies(items);
         }
+        [HttpPut("PriceUpdate")]
+        public async Task<HttpStatusCode> PriceUpdateApi([System.Web.Http.FromBody] PrieUpdateVIewModel prieUpdateVIewModel)
+        {
+            if (prieUpdateVIewModel.Itemid < 1 ) return HttpStatusCode.BadRequest;
+            return await _printerMenu.PriceUpdate(prieUpdateVIewModel);
+        }
 
         [HttpGet("MenuUpdateOn")]
         public async Task<HttpStatusCode> MenuUpdateOn([System.Web.Http.FromUri] int businessid)
