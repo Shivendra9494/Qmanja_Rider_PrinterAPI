@@ -193,10 +193,39 @@ namespace Qmanja_BAL.Printer_BAL
            
             return HttpStatusCode.OK;
         }
-         /// <summary>
+
+
+        /// <summary>
+        /// Disable menu items for one day or 5 years
+        /// </summary>
+        /// <param name="prieUpdateVIewModel"></param>
+        /// <returns></returns>
+        public async Task<HttpStatusCode> PriceUpdate(PrieUpdateVIewModel prieUpdateVIewModel)
+        {
+            if(prieUpdateVIewModel.ItemType == "MenuItem")
+            {
+                var isMenuExists = _qFoodsContext.MenuItems.Where(i => i.Id == prieUpdateVIewModel.Itemid).FirstOrDefault();
+                isMenuExists.Price = prieUpdateVIewModel.UpdatedPrice;
+                _qFoodsContext.MenuItems.Update(isMenuExists);
+                _qFoodsContext.SaveChanges();
+            }
+            if (prieUpdateVIewModel.ItemType == "MenuProperty")
+            {
+                var isPropExists = _qFoodsContext.MenuItemProperties.Where(i => i.Id == prieUpdateVIewModel.Itemid).FirstOrDefault();
+                isPropExists.Price = prieUpdateVIewModel.UpdatedPrice;
+                _qFoodsContext.MenuItemProperties.Update(isPropExists);
+                _qFoodsContext.SaveChanges();
+            }
+          
+
+            return HttpStatusCode.OK;
+
+
+        }
+        /// <summary>
         /// Enable menu items
         /// </summary>
-     
+
         /// <returns></returns>
         public async Task<List<MenuUpdateRecord>> GetMenuUpdate()
         {

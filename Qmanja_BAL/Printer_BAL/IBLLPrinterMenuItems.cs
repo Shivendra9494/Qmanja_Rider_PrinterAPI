@@ -23,5 +23,6 @@ namespace Qmanja_BAL.Printer_BAL
         Task<HttpStatusCode> DisablePropertites(ItemStatusViewModel menuItemProperty);
         Task<HttpStatusCode> MenuUpdate(int businessid);
         Task<List<MenuUpdateRecord>> GetMenuUpdate();
+        Task<HttpStatusCode> PriceUpdate(PrieUpdateVIewModel prieUpdateVIewModel);
     }
 }
