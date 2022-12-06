@@ -48,6 +48,7 @@ namespace Rider_Printer_API
             services.AddSingleton(mapper);
             services.AddScoped<IBLLPrinterMenuItems, BLLPrinterMenuItems>();
             services.AddScoped<IBLLPrinterOrders, BLLPrinterOrders>();
+            services.AddScoped<IBLLPrinterBusiness, BLLPrinterBusiness>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rider_Printer_API", Version = "v1" });
