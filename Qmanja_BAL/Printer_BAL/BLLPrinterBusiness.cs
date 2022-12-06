@@ -27,7 +27,7 @@ namespace Qmanja_BAL.Printer_BAL
 
         /// <summary>
         /// Return order details
-        /// </summary>
+        /// </summary> 
         /// <param name="businessid"></param>
         /// <returns></returns>
         public async Task<BusinessDetail> GetBusinessDetails(int businessid)
