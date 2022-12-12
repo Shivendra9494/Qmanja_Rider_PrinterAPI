@@ -36,5 +36,17 @@ namespace Qmanja_BAL.Printer_BAL
             if (business == null) throw new Exception("Order not Found!");
             return business;
         }
+        /// <summary>
+        /// Return order details
+        /// </summary> 
+        /// <param name="businessid"></param>
+        /// <returns></returns>
+        public async Task<List<Order>> GetTotalSalesDetails(int businessid)
+        {
+            var business  = await _qFoodsContext.Orders.Where(o => o.BusinessDetailId == businessid && o.CreationDate >= DateTime.Now.AddMonths(-1)).ToListAsync();
+            if (business == null) throw new Exception("Order not Found!");
+            return business;
+        }
+       
     }
 }

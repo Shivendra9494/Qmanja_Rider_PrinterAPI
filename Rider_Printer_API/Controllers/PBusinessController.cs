@@ -3,6 +3,7 @@ using Qmanja_BAL.Printer_BAL;
 using Qmanja_DAL.DBModels;
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -25,6 +26,13 @@ namespace Rider_Printer_API.Controllers
         {
             if (businessid < 0) throw new Exception("Invalid Id");
             return await _bLLPrinter.GetBusinessDetails(businessid);
+        }
+
+        [HttpGet("GetTotalSalesDetails")]
+        public async Task<List<Order>> GetTotalSales([System.Web.Http.FromUri] int businessid)
+        {
+            if (businessid < 0) throw new Exception("Invalid Id");
+            return await _bLLPrinter.GetTotalSalesDetails(businessid);
         }
     }
 }

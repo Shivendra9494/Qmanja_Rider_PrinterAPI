@@ -10,5 +10,6 @@ namespace Qmanja_BAL.Printer_BAL
     public interface IBLLPrinterBusiness
     {
         Task<BusinessDetail> GetBusinessDetails(int businessid);
+        Task<List<Order>> GetTotalSalesDetails(int businessid);
     }
 }
